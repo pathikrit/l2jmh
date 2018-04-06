@@ -37,6 +37,9 @@ class TestBenchmark {
 
   def implIsDefinedGet(x: Option[Char]) =
     if (x.isDefined) x.get.isLower else false
+  
+  def implTry(x: Option[Char]) = 
+    try { x.get.isLower } catch { case _: NoSuchElementException => false }
 
   @Benchmark def foldSome(): Boolean = implFold(someChar)
   @Benchmark def foldNone(): Boolean = implFold(noneChar)
@@ -61,6 +64,9 @@ class TestBenchmark {
 
   @Benchmark def isDefinedGetSome(): Boolean = implIsDefinedGet(someChar)
   @Benchmark def isDefinedGetNone(): Boolean = implIsDefinedGet(noneChar)
+  
+  @Benchmark def implTrySome(): Boolean = implTry(someChar)
+  @Benchmark def implTryNone(): Boolean = implTry(noneChar)
 }
 
 object TestBenchmark {
