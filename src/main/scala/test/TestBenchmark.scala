@@ -35,6 +35,9 @@ class TestBenchmark {
   def implIsInstanceOfGet(x: Option[Char]) =
     if (x.isInstanceOf[Some[Char]]) x.get.isLower else false
 
+  def implIsDefinedGet(x: Option[Char]) =
+    if (x.isDefined) x.get.isLower else false
+
   @Benchmark def foldSome(): Boolean = implFold(someChar)
   @Benchmark def foldNone(): Boolean = implFold(noneChar)
 
@@ -55,6 +58,9 @@ class TestBenchmark {
 
   @Benchmark def isInstanceOfGetSome(): Boolean = implIsInstanceOfGet(someChar)
   @Benchmark def isInstanceOfGetNone(): Boolean = implIsInstanceOfGet(noneChar)
+
+  @Benchmark def isDefinedGetSome(): Boolean = implIsDefinedGet(someChar)
+  @Benchmark def isDefinedGetNone(): Boolean = implIsDefinedGet(noneChar)
 }
 
 object TestBenchmark {
