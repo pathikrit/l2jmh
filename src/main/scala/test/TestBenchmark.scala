@@ -13,10 +13,14 @@ class TestBenchmark {
     case Some(c) => c.isLower
     case None    => false
   }
+
   def implPatMat2(x: Option[Char]) = x match {
     case None    => false
     case Some(c) => c.isLower
   }
+
+  def implIsAsInstanceOf(x: Option[Char]) =
+    if (x.isInstanceOf[Some[Char]]) x.asInstanceOf[Some[Char]].get.isLower else false
 
   @Benchmark def foldSome(): Boolean = implFold(someChar)
   @Benchmark def foldNone(): Boolean = implFold(noneChar)
@@ -26,6 +30,9 @@ class TestBenchmark {
 
   @Benchmark def patMatSome2(): Boolean = implPatMat2(someChar)
   @Benchmark def patMatNone2(): Boolean = implPatMat2(noneChar)
+
+  @Benchmark def isAsInstanceOfSome(): Boolean = implIsAsInstanceOf(someChar)
+  @Benchmark def isAsInstanceOfNone(): Boolean = implIsAsInstanceOf(noneChar)
 }
 
 object TestBenchmark {
